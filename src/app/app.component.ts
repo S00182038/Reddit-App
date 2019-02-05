@@ -7,6 +7,16 @@ styleUrls: ['./app.component.css']
  })
  export class AppComponent {
  articles: Article[]; // <-- component property
+ addArticle(title: HTMLInputElement, link: HTMLInputElement): boolean {
+  console.log(`Adding article title: ${title.value} and link: ${link.value}`);
+  this.articles.push(new Article(title.value, link.value, 0));
+  title.value = '';
+   link.value = '';
+   return false;
+ }
+ sortedArticles(): Article[] {
+  return this.articles.sort((a: Article, b: Article) => b.votes - a.votes);
+ }
  constructor() {
  this.articles = [
   new Article('Angular', 'http://angular.io', 3),
@@ -14,5 +24,4 @@ styleUrls: ['./app.component.css']
   new Article('Angular Homepage', 'http://angular.io', 1),
    ];
   }
-  
 }
